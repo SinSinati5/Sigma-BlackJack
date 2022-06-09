@@ -2,7 +2,7 @@
 A really good black jack game with good UI
 
 
-##Requirments
+## Requirments
 
 These libraries should be installed before use
 
@@ -16,6 +16,6 @@ import java.io.*;
 import java.io.File;
 
 
-##USe
+## Use
 
 After installing the required libraries just compile the Main.java file and run it.
