@@ -6,16 +6,19 @@ A really good black jack game with good UI
 
 These libraries should be installed before use
 
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.*;
-import java.io.*;
-import java.io.File;
+### java.util.ArrayList;
+### java.awt.*;
+### java.awt.event.ActionEvent;
+### java.awt.event.ActionListener;
+### javax.swing.*;
+### java.io.*;
+### javax.sound.sampled.*;
 
 
 ## Use
 
 After installing the required libraries just compile the Main.java file and run it.
+
+
+
+## Features
