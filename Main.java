@@ -1,23 +1,27 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
-import java.io.*;
-import java.io.File;
+import java.util.ArrayList;
+
+
+
 
 
 
 public class Main extends JFrame implements ActionListener {
 
     private JPanel contentPane;
+    public int musicnum = 0;
     public ArrayList<Cards> myCards, delCards, aCards;
 
     public int dnum, mnum;
 
+    public JButton musica;
+
 
     public boolean Stay = false;
+    public JLabel back;
 
 
     public int tot, deltot;
@@ -29,7 +33,10 @@ public class Main extends JFrame implements ActionListener {
 
     public int h;
 
-    private JButton yH, dH;
+    private JLabel yH, dH;
+
+    public Music music = new Music();
+
 
     public Main() {
         this.setTitle("BJ");
@@ -39,6 +46,8 @@ public class Main extends JFrame implements ActionListener {
         contentPane.setPreferredSize(new Dimension(1870, 1050));
         contentPane.setBackground(new Color(4, 99, 39));
         JScrollPane scrollFrame = new JScrollPane(contentPane);
+
+
 
 
         m1 = new JLabel();
@@ -53,7 +62,7 @@ public class Main extends JFrame implements ActionListener {
 
         bet = new JTextArea();
         bet.setBounds(20, 50, 300, 150);
-        bet.setBackground(new Color(4, 99, 39));
+        bet.setOpaque(false);
         bet.setForeground(new Color(255, 255, 255));
         bet.setEnabled(true);
         bet.setFont(new Font("sansserif", 0, 30));
@@ -62,25 +71,32 @@ public class Main extends JFrame implements ActionListener {
         bet.setText(String.format("Money: %s\nBet: ", 5000));
 
 
-        yH = new JButton();
+        yH = new JLabel();
         yH.setBounds(20, 700, 210, 70);
-        yH.setBackground(new Color(4, 99, 39));
+        yH.setOpaque(false);
         yH.setForeground(new Color(255, 255, 255));
         yH.setEnabled(true);
         yH.setFont(new Font("sansserif", 0, 30));
         yH.setText("Your Cards:");
         yH.setVisible(true);
-        yH.addActionListener(this);
 
-        dH = new JButton();
+        dH = new JLabel();
         dH.setBounds(20, 370, 260, 70);
-        dH.setBackground(new Color(4, 99, 39));
+        dH.setOpaque(false);
         dH.setForeground(new Color(255, 255, 255));
         dH.setEnabled(true);
         dH.setFont(new Font("sansserif", 0, 30));
         dH.setText("Dealers Cards:");
         dH.setVisible(true);
-        dH.addActionListener(this);
+
+        String path = "/home/sina/IdeaProjects/BJ/" + "backbor" + ".jpg";
+        ImageIcon icon = new ImageIcon(path);
+        back = new JLabel();
+        back.setBounds(0, 0, 1870, 1050);
+        back.setIcon(icon);
+        back.setEnabled(true);
+        back.setVisible(true);
+
 
         hit = new JButton();
         hit.setBounds(750, 700, 100, 70);
@@ -91,6 +107,16 @@ public class Main extends JFrame implements ActionListener {
         hit.setText("HIT");
         hit.setVisible(true);
         hit.addActionListener(this);
+
+        musica = new JButton();
+        musica.setBounds(20, 200, 200, 70);
+        musica.setBackground(new Color(114, 7, 7));
+        musica.setForeground(new Color(255, 255, 255));
+        musica.setEnabled(true);
+        musica.setFont(new Font("sansserif", 0, 30));
+        musica.setText("MUSIC");
+        musica.setVisible(true);
+        musica.addActionListener(this);
 
         stay = new JButton();
         stay.setBounds(850, 700, 200, 70);
@@ -108,6 +134,8 @@ public class Main extends JFrame implements ActionListener {
         contentPane.add(hit);
         contentPane.add(yH);
         contentPane.add(dH);
+        contentPane.add(musica);
+        contentPane.add(back);
 
         contentPane.setAutoscrolls(true);
         scrollFrame.setPreferredSize(new Dimension(800, 300));
@@ -121,6 +149,8 @@ public class Main extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
+
+
 
         Main window = new Main();
 
@@ -340,6 +370,7 @@ public class Main extends JFrame implements ActionListener {
             window.d1.setBounds(20, 465, 100, 145);
             window.d1.setVisible(true);
             window.contentPane.add(window.d1);
+            window.contentPane.add(window.back);
 
             window.contentPane.setAutoscrolls(true);
             window.add(window.contentPane);
@@ -349,13 +380,11 @@ public class Main extends JFrame implements ActionListener {
             window.setVisible(true);
 
 
-            window.tot = 0;
+
             window.deltot = 0;
 
+            window.getTot();
 
-            for (Cards x : window.myCards) {
-                window.tot += x.getValue();
-            }
 
 
 
@@ -367,10 +396,7 @@ public class Main extends JFrame implements ActionListener {
 
             while (!window.Stay) {
 
-                window.tot = 0;
-                for (int i = 0; i < window.myCards.size(); i++) {
-                    window.tot += window.myCards.get(i).getValue();
-                }
+                window.getTot();
 
 
 
@@ -380,26 +406,24 @@ public class Main extends JFrame implements ActionListener {
 
                     for (int i = 0; i < window.myCards.size(); i++) {
 
-                        if (window.myCards.get(i).getName() == "1S") {
+                        if (window.myCards.get(i).getName().equals("1S")) {
                             window.myCards.set(i, window.aCards.get(52));
                             i+=10;
-                        } else if (window.myCards.get(i).getName() == "1C") {
+                        } else if (window.myCards.get(i).getName().equals("1C")) {
                             window.myCards.set(i, window.aCards.get(53));
                             i+=10;
-                        } else if (window.myCards.get(i).getName() == "1H") {
+                        } else if (window.myCards.get(i).getName().equals("1H")) {
                             window.myCards.set(i, window.aCards.get(54));
                             i+=10;
-                        } else if (window.myCards.get(i).getName() == "1D") {
+                        } else if (window.myCards.get(i).getName().equals("1D")) {
                             window.myCards.set(i, window.aCards.get(55));
                             i+=10;
                         }
                     }
                 }
 
-                window.tot = 0;
-                for (int i = 0; i < window.myCards.size(); i++) {
-                    window.tot += window.myCards.get(i).getValue();
-                }
+                window.getTot();
+
 
 
 
@@ -411,12 +435,8 @@ public class Main extends JFrame implements ActionListener {
 
             }
 
-            window.tot = 0;
-            window.tot = 0;
 
-            for (int i = 0; i < window.myCards.size(); i++) {
-                window.tot += window.myCards.get(i).getValue();
-            }
+            window.getTot();
 
             System.out.println(window.tot);
 
@@ -429,6 +449,7 @@ public class Main extends JFrame implements ActionListener {
             //busting screen
 
             if (window.tot > 21) {
+                simpleSoundPlayer.play("/home/sina/IdeaProjects/BJ/Sounds/lose.wav");
                 JOptionPane.showMessageDialog(null, "You Busted", "InfoBox: ", JOptionPane.INFORMATION_MESSAGE);
                 System.out.println("Your money is " + (money-bet));
                 money-=bet;
@@ -445,6 +466,7 @@ public class Main extends JFrame implements ActionListener {
             window.d2.setBounds(140, 465, 100, 145);
             window.d2.setVisible(true);
             window.contentPane.add(window.d2);
+            window.contentPane.add(window.back);
 
             window.contentPane.setAutoscrolls(true);
             window.add(window.contentPane);
@@ -533,6 +555,7 @@ public class Main extends JFrame implements ActionListener {
                     window.d3.setBounds(260, 465, 100, 145);
                     window.d3.setVisible(true);
                     window.contentPane.add(window.d3);
+                    window.contentPane.add(window.back);
 
                     window.contentPane.setAutoscrolls(true);
                     window.add(window.contentPane);
@@ -547,6 +570,7 @@ public class Main extends JFrame implements ActionListener {
                     window.d4.setBounds(380, 465, 100, 145);
                     window.d4.setVisible(true);
                     window.contentPane.add(window.d4);
+                    window.contentPane.add(window.back);
 
                     window.contentPane.setAutoscrolls(true);
                     window.add(window.contentPane);
@@ -589,16 +613,19 @@ public class Main extends JFrame implements ActionListener {
 
             if (window.deltot < 22) {
                 if (window.deltot < window.tot) {
-
+                    simpleSoundPlayer.play("/home/sina/IdeaProjects/BJ/Sounds/win.wav");
                     JOptionPane.showMessageDialog(null, "You Won", "InfoBox: ", JOptionPane.INFORMATION_MESSAGE);
                     money += bet;
                 } else if (window.tot < window.deltot) {
+                    simpleSoundPlayer.play("/home/sina/IdeaProjects/BJ/Sounds/lose.wav");
                     JOptionPane.showMessageDialog(null, "You Lost", "InfoBox: ", JOptionPane.INFORMATION_MESSAGE);
                     money -= bet;
                 } else if (window.tot == window.deltot) {
+                    simpleSoundPlayer.play("/home/sina/IdeaProjects/BJ/Sounds/meh.wav");
                     JOptionPane.showMessageDialog(null, "Push", "InfoBox: ", JOptionPane.INFORMATION_MESSAGE);
                 }
             } else {
+                simpleSoundPlayer.play("/home/sina/IdeaProjects/BJ/Sounds/win.wav");
                 JOptionPane.showMessageDialog(null, "You Won", "InfoBox: ", JOptionPane.INFORMATION_MESSAGE);
                 money += bet;
             }
@@ -614,18 +641,33 @@ public class Main extends JFrame implements ActionListener {
 
 
 
+        //music
+
+        if (evt.getSource() == musica) {
+            music.run();
+
+
+        }
+
         //hit and stay logic
 
 
         if (evt.getSource() == hit) {
 
+            System.out.println("Your Cards: ");
+            for (Cards x : myCards) {
+                System.out.println(x.getValue());
+            }
+            System.out.println("__________");
+
             int rannum = (int) (Math.random() * 51);
 
-            tot = 0;
+            getTot();
+            getTot();
 
-            for (int i = 0; i < myCards.size(); i++) {
-                tot += myCards.get(i).getValue();
-            }
+            System.out.println("why is ur cards pooping: " + myCards.size());
+
+            System.out.println("why is ur cards: " + tot);
 
             if(tot > 10) {
                 if (rannum == 0) {
@@ -643,7 +685,6 @@ public class Main extends JFrame implements ActionListener {
                 myCards.add(aCards.get(rannum));
             }
 
-            tot = 0;
             tot = 0;
 
             for (int i = 0; i < myCards.size(); i++) {
@@ -681,6 +722,33 @@ public class Main extends JFrame implements ActionListener {
                 contentPane.add(m5);
 
             }
+            contentPane.add(back);
+
+            getTot();
+
+
+
+            //if user busts check to see if ace exists and sets value to 1
+
+            if (tot > 21) {
+
+                for (int i = 0; i < myCards.size(); i++) {
+
+                    if (myCards.get(i).getName().equals("1S")) {
+                        myCards.set(i, aCards.get(52));
+                        i+=10;
+                    } else if (myCards.get(i).getName().equals("1C")) {
+                        myCards.set(i, aCards.get(53));
+                        i+=10;
+                    } else if (myCards.get(i).getName().equals("1H")) {
+                        myCards.set(i, aCards.get(54));
+                        i+=10;
+                    } else if (myCards.get(i).getName().equals("1D")) {
+                        myCards.set(i, aCards.get(55));
+                        i+=10;
+                    }
+                }
+            }
 
             System.out.println(tot);
 
@@ -696,5 +764,17 @@ public class Main extends JFrame implements ActionListener {
             System.out.println("hello");
         }
     }
+
+    public void getTot() {
+        tot = 0;
+
+        for (int i = 0; i < myCards.size(); i++) {
+            tot = tot + myCards.get(i).getValue();
+        }
+    }
+
+
+
+
 
 }
