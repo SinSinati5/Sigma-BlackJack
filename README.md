@@ -1,5 +1,5 @@
 # Sigma-BlackJack
-A really good black jack game with good UI
+This is a a simple blackjack game with ui and music, enjoy!
 
 
 ## Requirments
@@ -22,3 +22,10 @@ After installing the required libraries just compile the Main.java file and run 
 
 
 ## Features
+
+Your cards are displayed on the bottom left corner. The dealers cards are displayed above your cards. The hit and stay buttons are in the middle bottom of the screen. Music butto in on the top left and pauses the game and plays music. The Money and Bet is on the top left and money displays your money left and bet shows your amount of bet.
+
+## Creaters
+
+### Main developer: Sina Aghily
+### Other developers: Ari and Mehmet
