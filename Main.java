@@ -266,6 +266,18 @@ public class Main extends JFrame implements ActionListener {
             //Input bet
 
             int bet = 0;
+
+            window.bet.setText(String.format("Money: %s\nBet: %2d", money, bet));
+
+            window.contentPane.add(window.back);
+
+            window.contentPane.setAutoscrolls(true);
+            window.add(window.contentPane);
+            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            window.setLocationRelativeTo(null);
+            window.pack();
+            window.setVisible(true);
+
             String bet1;
 
             for (int i = 0; i < 1; i++) {
