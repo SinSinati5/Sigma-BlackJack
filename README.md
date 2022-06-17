@@ -2,7 +2,7 @@
 This is a a simple blackjack game with ui and music, enjoy!
 
 
-## Requirments
+## Dependancies
 
 These libraries should be installed before use
 
@@ -15,9 +15,14 @@ These libraries should be installed before use
 ### javax.sound.sampled.*;
 
 
-## Use
+## How to run
 
-After installing the required libraries just compile the Main.java file and run it.
+Java JDK is required with all the dependancies.
+
+Command line commands:
+
+javac Main.java
+java Main.java
 
 
 
