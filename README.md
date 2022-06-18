@@ -21,7 +21,7 @@ Java JDK is required with all the dependancies.
 
 Command line commands:
 
-javac Main.java
+javac Main.java__
 java Main.java
 
 
